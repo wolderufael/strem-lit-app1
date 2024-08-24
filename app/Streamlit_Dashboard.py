@@ -2,16 +2,17 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# file1 = "../data/benin-malanville.csv"
-# file2 = "../data/sierraleone-bumbuna.csv"
-# file3 = "../data/togo-dapaong_qc.csv"
 file1 = "https://drive.google.com/uc?id=1TehlyntL_bzVXTQ6ZfuBXUPcdnXbxh3-&export=download"
 file2 = "https://drive.google.com/uc?id=1Sg6w7CsR1wEsZN97SIB7oDb_b-yuryDd&export=download"
 file3 = "https://drive.google.com/uc?id=14X525bS3pkA8WWv-ob-NIQC2DKxJvOiR&export=download"
 
-df_benin = pd.read_csv(file1)
-df_sierraleone = pd.read_csv(file2)
-df_togo = pd.read_csv(file3)
+@st.cache_data
+def load_data(url):
+    return pd.read_csv(url)
+
+df_benin = load_data(file1)
+df_sierraleone = load_data(file2)
+df_togo = load_data(file3)
 
 # Dictionary to map file names to actual file paths
 file_dict = {
